@@ -129,7 +129,9 @@ dir_y							+= inadyn
 dir_y							+= miniupnpd
 dir_y							+= dnsmasq
 dir_y							+= igmpproxy
-dir_y							+= udpxy
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_MSD_LITE),y)
+dir_y						        += udpxy
+endif
 dir_y							+= utils
 dir_y							+= lanauth
 dir_y							+= 802.1x
@@ -173,19 +175,20 @@ dir_y += wireguard
 dir_y += wireguard-tools
 endif
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_SMBD36),y)
-dir_$(SAMBA_ENABLED)							+= samba36
-dir_y											+= wsdd2
+dir_$(SAMBA_ENABLED)					+= samba36
+dir_y							+= wsdd2
 else
-dir_$(SAMBA_ENABLED)							+= samba3
+dir_$(SAMBA_ENABLED)					+= samba3
 endif
 dir_$(CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS)		+= chnroute
-dir_$(CONFIG_FIRMWARE_INCLUDE_TTYD)				+= ttyd
-dir_$(FRP_ENABLE)								+= frp
-dir_$(SOFTETHERVPN_ENABLE)						+= softethervpn
+dir_$(CONFIG_FIRMWARE_INCLUDE_TTYD)			+= ttyd
+dir_$(CONFIG_FIRMWARE_INCLUDE_MSD_LITE)		        += msd_lite
+dir_$(FRP_ENABLE)					+= frp
+dir_$(SOFTETHERVPN_ENABLE)				+= softethervpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT)		+= scutclient
 dir_$(CONFIG_FIRMWARE_INCLUDE_VLMCSD)			+= vlmcsd
 dir_$(CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER)		+= dns-forwarder
-dir_$(SHADOWSOCKS_ENABLE)						+= shadowsocks
+dir_$(SHADOWSOCKS_ENABLE)				+= shadowsocks
 dir_$(CONFIG_FIRMWARE_INCLUDE_LRZSZ)			+= lrzsz
 dir_$(CONFIG_FIRMWARE_INCLUDE_GDUT_DRCOM)		+= gdut-drcom
 dir_$(CONFIG_FIRMWARE_INCLUDE_DOGCOM)			+= dogcom
@@ -206,21 +209,21 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_HDPARM)			+= hdparm
 endif
 
 ifdef CONFIG_USB_SUPPORT
-dir_y											+= p910nd
-dir_y											+= usb-modeswitch
-dir_y											+= comgt-0.32
-dir_y											+= uqmi
-dir_$(CONFIG_FIRMWARE_INCLUDE_LPRD)				+= LPRng
-dir_$(CONFIG_FIRMWARE_INCLUDE_U2EC)				+= u2ec
+dir_y							+= p910nd
+dir_y							+= usb-modeswitch
+dir_y							+= comgt-0.32
+dir_y							+= uqmi
+dir_$(CONFIG_FIRMWARE_INCLUDE_LPRD)			+= LPRng
+dir_$(CONFIG_FIRMWARE_INCLUDE_U2EC)			+= u2ec
 dir_$(CONFIG_FIRMWARE_INCLUDE_DUMP1090)			+= dump1090
 endif
 ifeq ($(STORAGE_ENABLED),y)
-dir_$(CONFIG_FIRMWARE_INCLUDE_NFSD)				+= nfs-utils
+dir_$(CONFIG_FIRMWARE_INCLUDE_NFSD)			+= nfs-utils
 ifneq (,$(filter y,$(CONFIG_FIRMWARE_INCLUDE_NFSD) $(CONFIG_FIRMWARE_INCLUDE_NFSC)))
-dir_y											+= rpcbind
+dir_y							+= rpcbind
 endif
-dir_y											+= optware
-dir_y											+= util-linux
+dir_y							+= optware
+dir_y							+= util-linux
 dir_$(FS_EXT_ENABLED)							+= e2fsprogs
 dir_$(FS_FAT_ENABLED)							+= dosfstools
 dir_$(FS_NTFS_ENABLED)							+= ntfs-3g
